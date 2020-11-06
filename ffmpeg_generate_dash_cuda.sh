@@ -72,8 +72,8 @@ while [ -n "$1" ]; do
 			shift
 done
 
-ffmpeg -loglevel debug -i "$VIDEO_IN" -y \
-    -preset $PRESET_P -keyint_min $GOP_SIZE -g $GOP_SIZE -sc_threshold 0 -tune $TUNE -r $FPS -crf $CRF_P -pix_fmt yuv420p -c:v libx264\
+ffmpeg -loglevel debug -hwaccel cuda -i "$VIDEO_IN" -y \
+    -preset $PRESET_P -keyint_min $GOP_SIZE -g $GOP_SIZE -sc_threshold 0 -tune $TUNE -r $FPS -crf $CRF_P -pix_fmt yuv420p -c:v h264_nvenc\
     -c:a aac -b:a $A_BITRATE -ac $A_CHANNELS -ar 44100\
     -map v:0 -s:0 $V_SIZE_1 -b:v:0 2M -maxrate:0 2.14M -bufsize:0 3.5M \
     -map v:0 -s:1 $V_SIZE_2 -b:v:1 145k -maxrate:1 155k -bufsize:1 220k \
