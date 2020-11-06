@@ -66,7 +66,7 @@ while [ -n "$1" ]; do
 done
 
 ffmpeg -loglevel debug -hwaccel cuda -i "$VIDEO_IN" -y \
-    -preset $PRESET_P -keyint_min $GOP_SIZE -g $GOP_SIZE -sc_threshold 0 -tune $TUNE -r $FPS -crf $CRF_P -c:v h264_nvenc -pix_fmt yuv420p -movflags +faststart\
+    -keyint_min $GOP_SIZE -g $GOP_SIZE -sc_threshold 0 -tune $TUNE -r $FPS -crf $CRF_P -c:v h264_nvenc -pix_fmt yuv420p -movflags +faststart\
     -c:a aac -b:a $A_BITRATE -ac $A_CHANNELS -ar 44100\
     -s $V_SIZE -b:v 1.8M -maxrate:0 2.14M -bufsize:0 3.5M \
     fallback-video-$V_SIZE.mp4
